@@ -4,7 +4,7 @@ ARG BITCOIN_VERSION
 ENV PATH=/opt/bitcoin-${BITCOIN_VERSION}/bin:$PATH
 
 RUN apt-get update -y \
-  && apt-get install -y curl ca-certificates \
+  && apt-get install -y curl ca-certificates gosu \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -18,11 +18,14 @@ RUN SYS_ARCH="$(uname -m)" \
   && tar -xzf *.tar.gz -C /opt \
   && rm *.tar.gz
 
+COPY bitcoin.conf /etc/bitcoin.conf
 RUN chown -R student:student /home/student
-
-VOLUME ["/home/student/.bitcoin"]
 
 EXPOSE 38332 38333 38334
 
-USER student
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
+
 WORKDIR /home/student
+CMD [ "bash" ]

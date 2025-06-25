@@ -11,6 +11,9 @@ services:
       - "38333:38333"  # P2P
       - "38334:38334"  # P2P local
     volumes:
-      - .bitcoin:/home/student/.bitcoin
+      - bitcoin-datadir:/home/student/.bitcoin
     environment:
       BITCOIN_VERSION: "29.0"
+
+volumes:
+  bitcoin-datadir:
