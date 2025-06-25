@@ -4,7 +4,7 @@ ARG BITCOIN_VERSION
 ENV PATH=/opt/bitcoin-${BITCOIN_VERSION}/bin:$PATH
 
 RUN apt-get update -y \
-  && apt-get install -y curl ca-certificates gosu \
+  && apt-get install -y curl ca-certificates gosu jq \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
