@@ -6,14 +6,24 @@ services:
       args:
         BITCOIN_VERSION: "29.0"
     container_name: bitcoin-node
+    command: tail -f /dev/null
     ports:
       - "38332:38332"  # RPC
       - "38333:38333"  # P2P
       - "38334:38334"  # P2P local
-    volumes:
-      - bitcoin-datadir:/home/student/.bitcoin
     environment:
       BITCOIN_VERSION: "29.0"
-
-volumes:
-  bitcoin-datadir:
+  bitcoin-miner:
+    build:
+      context: .
+      dockerfile: Dockerfile.miner
+      args:
+        BITCOIN_VERSION: "29.0"
+    container_name: bitcoin-miner
+    command: tail -f /dev/null
+    ports:
+      - "38332:38332"  # RPC
+      - "38333:38333"  # P2P
+      - "38334:38334"  # P2P local
+    environment:
+      BITCOIN_VERSION: "29.0"
