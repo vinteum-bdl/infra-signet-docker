@@ -1,6 +1,6 @@
 FROM debian:stable-slim
 
-ARG BITCOIN_VERSION
+ARG BITCOIN_VERSION="29.0"
 ENV PATH=/opt/bitcoin-${BITCOIN_VERSION}/bin:$PATH
 
 RUN apt-get update -y \
